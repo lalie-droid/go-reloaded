@@ -19,7 +19,6 @@ func TransformationBalise(line string) string {
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				// ParseInt fait la convertion automatiquement en toute base
-				//pourquoi on met decimal, err ?
 
 				decimal, err := strconv.ParseInt(motPrecedent, 16, 64)
 				if err == nil {
@@ -32,7 +31,6 @@ func TransformationBalise(line string) string {
 				}
 			}
 		case "(bin)":
-			// Même logique que pour (hex), mais pour le binaire
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				decimal, err := strconv.ParseInt(motPrecedent, 2, 64)
@@ -43,7 +41,7 @@ func TransformationBalise(line string) string {
 				}
 			}
 		case "(up)":
-			// Met le mot précédent en majuscules
+			// Met le mot  en majuscules
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				tabMots[i-1] = strings.ToUpper(motPrecedent)
@@ -51,7 +49,7 @@ func TransformationBalise(line string) string {
 				i--
 			}
 		case "(low)":
-			// Met le mot précédent en minuscules
+			// met le mot precedent en minuscules
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				tabMots[i-1] = strings.ToLower(motPrecedent)
@@ -59,7 +57,6 @@ func TransformationBalise(line string) string {
 				i--
 			}
 		case "(cap)":
-			// Met une majuscule initiale au mot précédent
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				tabMots[i-1] = capitalize(motPrecedent)
@@ -70,8 +67,6 @@ func TransformationBalise(line string) string {
 		i++
 	}
 
-	// Reconstruit la ligne à partir des mots transformés
-	// a voir
 	return strings.Join(tabMots, " ")
 }
 
