@@ -1,4 +1,4 @@
-package fonctions
+package Fonctions
 
 import (
 	"strconv"
@@ -59,21 +59,18 @@ func TransformationBalise(line string) string {
 		case "(cap)":
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
-				tabMots[i-1] = capitalize(motPrecedent)
-				tabMots = append(tabMots[:i], tabMots[i+1:]...)
-				i--
+				if len(motPrecedent) == 0 {
+					return motPrecedent
+				} else {
+					return strings.ToUpper(string(motPrecedent[0])) + strings.ToLower(motPrecedent[1:])
+				}
+
 			}
+			tabMots = append(tabMots[:i], tabMots[i+1:]...)
+			i--
 		}
 		i++
 	}
 
 	return strings.Join(tabMots, " ")
-}
-
-// capitalize convertit un mot avec une majuscule initiale.
-func capitalize(word string) string {
-	if len(word) == 0 {
-		return word
-	}
-	return strings.ToUpper(string(word[0])) + strings.ToLower(word[1:])
 }

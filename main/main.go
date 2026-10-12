@@ -14,6 +14,7 @@ func main() {
 	fichierSortie := os.Args[2]
 
 	// Lit le fichier d'entrée et applique les transformations
+	// om doit entrer go run . fichier entrer fichier sortie
 	content, err := ModifierFichier(fichierEntre)
 	if err != nil {
 		fmt.Println("Erreur :", err)
@@ -69,18 +70,16 @@ func EcritFichier(nomFichier string, content string) error {
 
 // transformLine applique toutes les transformations à une ligne de texte.
 func transformLine(line string) string {
-	// Étape 1 : Gérer les apostrophes
 	line = TransformationBalise(line)
-
-	// Étape 4 : Gérer "a" -> "an"
 	line = ADevientAn(line)
+	line = TransformationPonctuation(line)
 
 	return line
 }
 
 // TransformationBalise applique les transformations (hex), (bin), (up), (low), (cap) sur une ligne
 func TransformationBalise(line string) string {
-	// On sépare la ligne en mots
+	// On separe la ligne en mots
 	tabMots := strings.Fields(line)
 	i := 0
 	for i < len(tabMots) {
@@ -97,7 +96,7 @@ func TransformationBalise(line string) string {
 				if err == nil {
 					tabMots[i-1] = strconv.Itoa(int(decimal))
 					//si pas d'erreurs
-					// Supprime l'instruction "(hex)" de la liste
+					// Supprime (hex) de la liste
 					tabMots = append(tabMots[:i], tabMots[i+1:]...)
 					// On recule l'index pour ne pas sauter de mot
 					i--
@@ -114,7 +113,7 @@ func TransformationBalise(line string) string {
 				}
 			}
 		case "(up)":
-			// Met le mot  en majuscules
+			// met le mot  en majuscules
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				tabMots[i-1] = strings.ToUpper(motPrecedent)
@@ -136,6 +135,31 @@ func TransformationBalise(line string) string {
 				tabMots = append(tabMots[:i], tabMots[i+1:]...)
 				i--
 			}
+			//if cap, 2 prend le mot -1,    2fois
+		case "(cap,nombre)":
+			// Vérifier si le mot commence par "(cap,"
+			if strings.HasPrefix(word, "(cap,") {
+				nombreStr := strings.TrimPrefix(word, "(cap,")
+				nombreStr = strings.TrimSuffix(nombreStr, ")")
+				nombre, err := strconv.Atoi(nombreStr)
+				if err != nil {
+					i++ // Si ce n'est pas un nombre, on passe au mot suivant
+					continue
+				}
+
+				// Capitaliser les mots précédents
+				if i > 0 {
+					for a := 0; a < nombre; a++ {
+						motPrecedent := tabMots[i-1]
+						tabMots[i-1] = capitalize(motPrecedent)
+					}
+					tabMots = append(tabMots[:i], tabMots[i+1:]...)
+					i-- // Recule pour ne pas sauter de mot
+				}
+			} else {
+				i++ // Si ce n'est pas un tag connu, on passe au mot suivant
+			}
+
 		}
 		i++
 	}
@@ -170,4 +194,25 @@ func ADevientAn(line string) string {
 
 	}
 	return strings.Join(tabMots, " ")
+}
+func TransformationPonctuation(line string) string {
+	tabMots := strings.Fields(line)
+	var result string
+
+	for i, word := range tabMots {
+		// Si le mot est une ponctuation, on ajoute la ponctuation puis un espace
+		if len(word) == 1 && strings.ContainsAny(word, ".,!?:;") {
+			result += word
+		} else if word == "..." || word == "?!" {
+			result += word
+		} else {
+			// Sinon, on ajoute un espace avant le mot (sauf pour le premier mot)
+			if i > 0 {
+				result += " "
+			}
+			result += word
+		}
+	}
+
+	return result
 }
