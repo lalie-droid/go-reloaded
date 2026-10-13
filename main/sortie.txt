@@ -1,8 +1,13 @@
-It was the best of times, it was the worst of TIMES, it was the age of wisdom,
-It was the best of times, it was the worst of TIMES, it was the age of wisdom,
-Simply add 66 and 2 and you will see the result is 68.
-Simply add 66 and 2 and you will see the result is 68.
-There is no greater agony than bearing an untold story inside you.
-There is no greater agony than bearing an untold story inside you.
-Punctuation tests are... kinda boring ,what do you think?
-Punctuation tests are... kinda boring, what do you think?!
+SALUT les amis! Aujourd’hui, nous allons tester ce programme incroyable. Il semble prometteur, n’est-ce pas?
+
+Regarde ce nombre: 26 est équivalent à 26 en décimal. 10 équivaut à 10. pas fascinant?
+
+Voici une phrase avec des ponctuations: “Attends, est-ce que cela fonctionne? Oui, bien sûr: cela semble parfait! Mais... est-ce vraiment le cas? ”
+
+Et voici un exemple avec des guillemets: “Il a dit: ’ C’est incroyable! ’ et je n’en croyais pas mes oreilles.”
+
+Parfois, il faut ajouter un ‘a’ devant un mot commençant par une voyelle, comme dans “ an apple” qui devrait devenir “ an apple”. Ou encore “ An hour” qui devient “ An hour”.
+
+Et voici UNE PHRASE AVEC MOTS EN MAJUSCULES POUR VOIR LE RÉSULTAT
+
+Enfin, voici un exemple avec a des points de suspension: “Cela ressemble à... une bonne idée, non?

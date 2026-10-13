@@ -72,6 +72,7 @@ func EcritFichier(nomFichier string, content string) error {
 func transformLine(line string) string {
 	line = TransformationBalise(line)
 	line = ADevientAn(line)
+	line = TransformationBaliseNombre(line)
 	line = TransformationPonctuation(line)
 
 	return line
@@ -177,17 +178,20 @@ func capitalize(word string) string {
 
 // ADevientAn transformation de "a" en "an" et "A" en "An"
 func ADevientAn(line string) string {
+	//parcours la ligne
 	tabMots := strings.Fields(line)
 	for i := 0; i < len(tabMots)-1; i++ {
+		nextword := tabMots[i+1]
+		nextlettre := string(nextword[0])
 		if tabMots[i] == "a" {
-			nextMot := tabMots[i+1]
-			if strings.ContainsAny(nextMot, "aeiouh") {
+			//si
+			if strings.ContainsAny(nextlettre, "aeiouh") {
 				tabMots[i] = "an"
 			}
 		}
 		if tabMots[i] == "A" {
-			nextMot := tabMots[i+1]
-			if strings.ContainsAny(nextMot, "aeiouh") {
+
+			if strings.ContainsAny(nextlettre, "aeiouh") {
 				tabMots[i] = "An"
 			}
 		}
@@ -195,16 +199,20 @@ func ADevientAn(line string) string {
 	}
 	return strings.Join(tabMots, " ")
 }
+
 func TransformationPonctuation(line string) string {
 	tabMots := strings.Fields(line)
 	var result string
 
 	for i, word := range tabMots {
+		premierlettre := string(word[0])
 		// Si le mot est une ponctuation, on ajoute la ponctuation puis un espace
-		if len(word) == 1 && strings.ContainsAny(word, ".,!?:;") {
+		if word == "..." || word == "?!" {
 			result += word
-		} else if word == "..." || word == "?!" {
+		} else if len(word) == 1 && strings.ContainsAny(word, ".,!?:;") {
 			result += word
+		} else if len(word) > 1 && strings.ContainsAny(premierlettre, ".,!?:;") {
+			result += premierlettre
 		} else {
 			// Sinon, on ajoute un espace avant le mot (sauf pour le premier mot)
 			if i > 0 {
@@ -215,4 +223,69 @@ func TransformationPonctuation(line string) string {
 	}
 
 	return result
+}
+
+func TransformationBaliseNombre(line string) string {
+	tabMots := strings.Fields(line)
+	for i := 0; i < len(tabMots); i++ {
+		word := tabMots[i]
+
+		switch word {
+		case "(up,":
+			if i+1 >= len(tabMots) {
+				continue
+			}
+			nbr, err := strconv.Atoi(strings.TrimSuffix(tabMots[i+1], ")"))
+			if err != nil || nbr < 0 {
+				continue
+			}
+			debut := i - nbr
+			if debut < 0 {
+				debut = 0
+			}
+			for j := debut; j < i; j++ {
+				tabMots[j] = strings.ToUpper(tabMots[j])
+			}
+			tabMots = append(tabMots[:i], tabMots[i+2:]...)
+			i--
+
+		case "(low,":
+			if i+1 >= len(tabMots) {
+				continue
+			}
+			nbr, err := strconv.Atoi(strings.TrimSuffix(tabMots[i+1], ")"))
+			if err != nil || nbr < 0 {
+				continue
+			}
+			debut := i - nbr
+			if debut < 0 {
+				debut = 0
+			}
+			for j := debut; j < i; j++ {
+				tabMots[j] = strings.ToLower(tabMots[j])
+			}
+			tabMots = append(tabMots[:i], tabMots[i+2:]...)
+			i--
+
+		case "(cap,":
+			if i+1 >= len(tabMots) {
+				continue
+			}
+			nbr, err := strconv.Atoi(strings.TrimSuffix(tabMots[i+1], ")"))
+			if err != nil || nbr < 0 {
+				continue
+			}
+			debut := i - nbr
+			if debut < 0 {
+				debut = 0
+			}
+			for j := debut; j < i; j++ {
+				r := []rune(tabMots[j])
+				tabMots[j] = strings.ToUpper(string(r[0])) + strings.ToLower(string(r[1:]))
+			}
+			tabMots = append(tabMots[:i], tabMots[i+2:]...)
+			i--
+		}
+	}
+	return strings.Join(tabMots, " ")
 }

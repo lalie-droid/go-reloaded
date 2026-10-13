@@ -1,8 +1,13 @@
-it (cap) was the best of times, it was the worst of times (up) , it was the age of wisdom, 
-It was the best of times, it was the worst of TIMES, it was the age of wisdom, 
-Simply add 42 (hex) and 10 (bin) and you will see the result is 68.
-Simply add 66 and 2 and you will see the result is 68.
-There is no greater agony than bearing a untold story inside you.
-There is no greater agony than bearing an untold story inside you.
-Punctuation tests are ... kinda boring ,what do you think ?
-Punctuation tests are... kinda boring, what do you think     ?!
+Salut (up) les amis ! Aujourd’hui, nous allons TESTER (low) ce programme incroyable. il (cap) semble prometteur, n’est-ce pas ?
+
+Regarde ce nombre : 1A (hex) est équivalent à 26 en décimal   .Et 1010 (bin) équivaut à 10  .N’est-ce pas fascinant ?
+
+Voici une phrase avec des ponctuations : “Attends     , est-ce que cela fonctionne ? Oui, bien sûr : cela semble parfait ! Mais   ...  est-ce vraiment le cas ? ”
+
+Et voici un exemple avec des guillemets : “Il a dit : ’ C’est incroyable ! ’ et je n’en croyais pas mes oreilles.”
+
+Parfois, il faut ajouter un ‘a’ devant un mot commençant par une voyelle, comme dans “ a apple” qui devrait devenir “ an apple”. Ou encore “ A hour” qui devient “ An hour”.
+
+Et voici une phrase avec mots en majuscules pour voir le résultat (up, 10)
+
+Enfin, voici un exemple avec a des points de suspension : “Cela ressemble à   ... une bonne idée, non ?”
