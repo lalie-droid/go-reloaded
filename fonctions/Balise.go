@@ -9,8 +9,8 @@ import (
 func TransformationBalise(line string) string {
 	// On sépare la ligne en mots
 	tabMots := strings.Fields(line)
-	i := 0
-	for i < len(tabMots) {
+
+	for i := 0; i < len(tabMots); i++ {
 		word := tabMots[i]
 
 		switch word {
@@ -41,7 +41,7 @@ func TransformationBalise(line string) string {
 				}
 			}
 		case "(up)":
-			// Met le mot  en majuscules
+			// met le mot  en majuscules
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				tabMots[i-1] = strings.ToUpper(motPrecedent)
@@ -57,6 +57,7 @@ func TransformationBalise(line string) string {
 				i--
 			}
 		case "(cap)":
+			//pareil en cap
 			if i > 0 {
 				motPrecedent := tabMots[i-1]
 				if len(motPrecedent) == 0 {
@@ -73,4 +74,13 @@ func TransformationBalise(line string) string {
 	}
 
 	return strings.Join(tabMots, " ")
+}
+
+// capitalize convertit un mot avec une majuscule initiale.
+// jai fait une autre fonction lutot que l'integree a transformation balise pour que ce soit plus lisible
+func capitalize(word string) string {
+	if len(word) == 0 {
+		return word
+	}
+	return strings.ToUpper(string(word[0])) + strings.ToLower(word[1:])
 }
