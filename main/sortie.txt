@@ -10,4 +10,4 @@ Parfois, il faut ajouter un ‘a’ devant un mot commençant par une voyelle, c
 
 Et voici UNE PHRASE AVEC MOTS EN MAJUSCULES POUR VOIR LE RÉSULTAT
 
-Enfin, voici un exemple avec a des points de suspension: “Cela ressemble à... une bonne idée, non?
+Enfin, voici un exemple avec a des points de suspension: 'Cela ressemble à... une bonne idée, non ”
